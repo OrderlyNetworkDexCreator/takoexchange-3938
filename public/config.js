@@ -18,7 +18,7 @@ window.__RUNTIME_CONFIG__ = {
   "VITE_HAS_PRIMARY_LOGO": "true",
   "VITE_HAS_SECONDARY_LOGO": "true",
   "VITE_ENABLED_MENUS": "Trading,Swap,Portfolio,Vaults,Markets,Rewards,Leaderboard",
-  "VITE_CUSTOM_MENUS": "",
+  "VITE_CUSTOM_MENUS": "Buy Crypto, https://www.moonpay.com/buy",
   "VITE_ENABLE_CAMPAIGNS": "false",
   "VITE_TELEGRAM_URL": "https://t.me/takoden",
   "VITE_DISCORD_URL": "https://discord.gg/a35yakEp4n",
