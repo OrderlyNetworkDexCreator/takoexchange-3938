@@ -17,7 +17,7 @@ window.__RUNTIME_CONFIG__ = {
   "VITE_APP_DESCRIPTION": "Tako is a fast, secure decentralized exchange (DEX) built on Orderly Network. Trade crypto with deep liquidity and CEX-like performance — all on-chain.",
   "VITE_HAS_PRIMARY_LOGO": "true",
   "VITE_HAS_SECONDARY_LOGO": "true",
-  "VITE_ENABLED_MENUS": "Swap,Trading,Portfolio,Vaults,Markets,Rewards,Leaderboard",
+  "VITE_ENABLED_MENUS": "Trading,Swap,Portfolio,Vaults,Markets,Rewards,Leaderboard",
   "VITE_CUSTOM_MENUS": "",
   "VITE_ENABLE_CAMPAIGNS": "false",
   "VITE_TELEGRAM_URL": "https://t.me/takoden",
