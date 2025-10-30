@@ -1,6 +1,6 @@
 window.__RUNTIME_CONFIG__ = {
   "VITE_ORDERLY_BROKER_ID": "tako",
-  "VITE_ORDERLY_BROKER_NAME": "TakoDex",
+  "VITE_ORDERLY_BROKER_NAME": "TAKODEX",
   "VITE_DISABLE_MAINNET": "false",
   "VITE_DISABLE_TESTNET": "false",
   "VITE_ORDERLY_MAINNET_CHAINS": "1,56,43114,1329,900900900,146,1514,80094,42161,10,5000,8453,2818,34443,2741,98866",
@@ -13,7 +13,7 @@ window.__RUNTIME_CONFIG__ = {
   "VITE_DISABLE_EVM_WALLETS": "false",
   "VITE_DISABLE_SOLANA_WALLETS": "false",
   "VITE_WALLETCONNECT_PROJECT_ID": "7aed91fc3f3de5d9657a08da587f8618",
-  "VITE_APP_NAME": "TakoDex",
+  "VITE_APP_NAME": "TAKODEX",
   "VITE_APP_DESCRIPTION": "Tako is a fast, secure decentralized exchange (DEX) built on Orderly Network. Trade crypto with deep liquidity and CEX-like performance — all on-chain.",
   "VITE_HAS_PRIMARY_LOGO": "true",
   "VITE_HAS_SECONDARY_LOGO": "true",
