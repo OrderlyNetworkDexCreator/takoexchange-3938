@@ -16,11 +16,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  check-prerequisites:
     runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.check_merge.outputs.should_skip }}
     steps:
       - name: Check if triggered by merge commit
         id: check_merge
@@ -28,7 +27,8 @@ jobs:
         with:
           script: |
             if (context.eventName !== 'push') {
-              return false;
+              core.setOutput('should_skip', 'false');
+              return;
             }
             const commit = await github.rest.repos.getCommit({
               owner: context.repo.owner,
@@ -38,15 +38,19 @@ jobs:
             const isMerge = commit.data.parents.length > 1;
             if (isMerge) {
               console.log('Triggered by merge commit, skipping workflow to prevent loop');
+              core.setOutput('should_skip', 'true');
+            } else {
+              core.setOutput('should_skip', 'false');
             }
-            return isMerge;
 
-      - name: Exit if merge commit
-        if: steps.check_merge.outputs.result == 'true'
-        run: |
-          echo "Workflow triggered by merge commit from upstream sync, exiting to prevent loop"
-          exit 0
-
+  build-and-deploy:
+    needs: check-prerequisites
+    if: needs.check-prerequisites.outputs.should_skip != 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Check if fork
         id: check_fork
         uses: actions/github-script@v7
@@ -77,13 +81,20 @@ jobs:
           git remote add upstream https://github.com/OrderlyNetworkDexCreator/dex-creator-template.git || true
           git fetch upstream
           
-          # Try to merge upstream/main
+          BEFORE_MERGE=$(git rev-parse HEAD)
+          
           if git merge upstream/main --no-edit; then
-            echo "Successfully merged upstream changes"
-            echo "sync_happened=true" >> $GITHUB_OUTPUT
-            git push origin main
+            AFTER_MERGE=$(git rev-parse HEAD)
+            
+            if [ "$BEFORE_MERGE" != "$AFTER_MERGE" ]; then
+              echo "Successfully merged upstream changes"
+              echo "sync_happened=true" >> $GITHUB_OUTPUT
+              git push origin main
+            else
+              echo "Already up to date with upstream"
+            fi
           else
-            echo "Merge failed or no changes to merge"
+            echo "Merge failed"
             git merge --abort 2>/dev/null || true
           fi
 
