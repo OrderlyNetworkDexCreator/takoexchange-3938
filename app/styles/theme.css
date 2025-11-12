@@ -47,10 +47,10 @@
   --oui-color-base-foreground: 245 245 250;
   --oui-color-line: 245 245 250;
 
-  --oui-color-trading-loss: 115 62 230;
-  --oui-color-trading-loss-contrast: 245 245 250;
-  --oui-color-trading-profit: 115 62 230;
-  --oui-color-trading-profit-contrast: 115 62 230;
+  --oui-color-trading-loss: 255 0 0;
+  --oui-color-trading-loss-contrast: 255 0 0;
+  --oui-color-trading-profit: 0 219 44;
+  --oui-color-trading-profit-contrast: 0 219 44;
 
   /* gradients */
   --oui-gradient-primary-start: 74 41 143;
