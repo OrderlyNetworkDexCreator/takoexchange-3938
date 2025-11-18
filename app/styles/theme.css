@@ -1,6 +1,37 @@
 :root {
-  --oui-font-family: 'Source Sans Pro', sans-serif;
-  --oui-font-size-base: 19.5px;
+  --oui-font-family: 'Manrope', sans-serif;
+
+  /* global font sizes */
+  --oui-font-size-xs: 12px;   /* small labels, table footers */
+  --oui-font-size-sm: 12px;   /* default small text */
+  --oui-font-size-md: 14px;   /* default body, chart labels */
+  --oui-font-size-lg: 16px;   /* nav items, headings */
+  --oui-font-size-xl: 20px;   /* section titles, key values */
+  --oui-font-size-2xl: 24px;  /* page titles */
+
+  /* specific semantic font sizes */
+  --oui-font-size-nav: var(--oui-font-size-lg);              /* 16px */
+  --oui-font-size-stats-label: 12px;                         /* stats labels */
+  --oui-font-size-stats-value: 15px;                         /* stats values (was 14px) */
+  --oui-font-size-chart-axis: var(--oui-font-size-sm);       /* 12px */
+  --oui-font-size-chart-lastprice: var(--oui-font-size-md);  /* 14px */
+  --oui-font-size-button: var(--oui-font-size-md);           /* 14px */
+  --oui-font-size-pair-name: var(--oui-font-size-xl);        /* 20px */
+
+  /*  order book specific sizes */
+  --oui-font-size-ob-header: 13px;   /* was 12px */
+  --oui-font-size-ob-row:    14px;   /* was 13px */
+  --oui-font-size-ob-mid:    19px;   /* was 20px */
+
+  /* font weights + line-heights */
+  --oui-font-weight-regular: 400;
+  --oui-font-weight-medium: 500;
+  --oui-font-weight-semibold: 600;
+  --oui-font-weight-bold: 700;
+
+  --oui-line-height-tight: 1.15;
+  --oui-line-height-normal: 1.35;
+  --oui-line-height-loose: 1.5;
 
   /* colors */
   --oui-color-primary: 115 62 230;
@@ -8,7 +39,7 @@
   --oui-color-primary-darken: 0 0 0;
   --oui-color-primary-contrast: 245 245 250;
 
-  --oui-color-link: 115 62 230;
+ --oui-color-link: 115 62 230;
   --oui-color-link-light: 115 62 230;
 
   --oui-color-secondary: 245 245 250;
@@ -33,7 +64,7 @@
   --oui-color-fill: 36 32 47;
   --oui-color-fill-active: 40 46 58;
 
-  --oui-color-base-1: 75 63 108;
+--oui-color-base-1: 75 63 108;
   --oui-color-base-2: 63 54 93;
   --oui-color-base-3: 54 47 78;
   --oui-color-base-4: 47 42 68;
@@ -47,13 +78,13 @@
   --oui-color-base-foreground: 245 245 250;
   --oui-color-line: 245 245 250;
 
-  --oui-color-trading-loss: 199 0 0;
-  --oui-color-trading-loss-contrast: 255 0 0;
-  --oui-color-trading-profit: 0 179 36;
-  --oui-color-trading-profit-contrast: 0 219 44;
+  --oui-color-trading-loss: 217 139 139;        /* red sell text */
+  --oui-color-trading-loss-contrast: 255 255 255;
+  --oui-color-trading-profit: 71 199 176;        /* green buy text */
+  --oui-color-trading-profit-contrast: 255 255 255;
 
   /* gradients */
-  --oui-gradient-primary-start: 74 41 143;
+--oui-gradient-primary-start: 74 41 143;
   --oui-gradient-primary-end: 132 93 206;
 
   --oui-gradient-secondary-start: 63 54 93;
@@ -78,23 +109,18 @@
   --oui-gradient-neutral-end: 38 41 46;
 
   /* rounded */
-  --oui-rounded-sm: 2px;
-  --oui-rounded: 4px;
+  --oui-rounded-sm: 0px;
+  --oui-rounded: 0px;
   --oui-rounded-md: 6px;
-  --oui-rounded-lg: 8px;
-  --oui-rounded-xl: 12px;
-  --oui-rounded-2xl: 16px;
+  --oui-rounded-lg: 0px;
+  --oui-rounded-xl: 0px;
+  --oui-rounded-2xl: 0px;
   --oui-rounded-full: 9999px;
 
   /* spacing */
-  --oui-spacing-xs: 20rem;
-  --oui-spacing-sm: 22.5rem;
-  --oui-spacing-md: 26.25rem;
-  --oui-spacing-lg: 30rem;
-  --oui-spacing-xl: 33.75rem;
-}
-
-html, body {
-  font-family: 'Source Sans Pro', sans-serif !important;
-  font-size: 19.5px !important;
+  --oui-spacing-xs: 10rem;
+  --oui-spacing-sm: 17.5rem;
+  --oui-spacing-md: 12rem;
+  --oui-spacing-lg: 17.5rem;
+  --oui-spacing-xl: 19rem;
 }
