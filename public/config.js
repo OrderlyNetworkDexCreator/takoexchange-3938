@@ -33,7 +33,7 @@ window.__RUNTIME_CONFIG__ = {
   "VITE_SEO_TWITTER_HANDLE": "@takoexchange",
   "VITE_SEO_THEME_COLOR": "#121826",
   "VITE_SEO_KEYWORDS": "Tako Exchange, Tako Dex, decentralized exchange, crypto trading platform, best DEX 2025, Web3 trading, Orderly Network DEX, perpetual futures trading, crypto spot trading, low fees exchange, high liquidity crypto, DeFi exchange, secure crypto trading, crypto derivatives DEX, Ethereum trading, Solana trading, blockchain trading, next-gen crypto exchange, trade Bitcoin, trade Ethereum, altcoin trading, best crypto DEX, web3 finance, decentralized crypto platform, crypto liquidity hub",
-  "VITE_AVAILABLE_LANGUAGES": "en,zh,ja,es,ko,vi,de,fr,ru,id,tr,it,pt,uk,pl,nl",
+  "VITE_AVAILABLE_LANGUAGES": "en,zh,ja,es,ko,vi,de,fr,ru,id,tr,it,pt,uk,pl,nl,tc",
   "VITE_USE_CUSTOM_PNL_POSTERS": "true",
   "VITE_CUSTOM_PNL_POSTER_COUNT": "3",
   "VITE_TRADING_VIEW_COLOR_CONFIG": "",
