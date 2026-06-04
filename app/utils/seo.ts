@@ -25,6 +25,7 @@ type LinkTag = {
 const SUPPORTED_LANGUAGES = [
   { code: "en", name: "English", flag: "🇺🇸" },
   { code: "zh", name: "中文", flag: "🇨🇳" },
+  { code: "tc", name: "中文繁體", flag: "🇭🇰" },
   { code: "ja", name: "日本語", flag: "🇯🇵" },
   { code: "es", name: "Español", flag: "🇪🇸" },
   { code: "ko", name: "한국어", flag: "🇰🇷" },
@@ -41,6 +42,25 @@ const SUPPORTED_LANGUAGES = [
   { code: "nl", name: "Nederlands", flag: "🇳🇱" },
 ];
 
+// Map a BCP-47 browser language tag to one of our supported locale codes.
+// Traditional Chinese (Taiwan/Hong Kong/Macau/Hant) -> "tc"; Simplified -> "zh".
+export function mapBrowserLanguage(lang: string): string {
+  const lower = lang.toLowerCase();
+  if (lower.startsWith("zh")) {
+    if (
+      lower.includes("hant") ||
+      lower.includes("tw") ||
+      lower.includes("hk") ||
+      lower.includes("mo")
+    ) {
+      return "tc";
+    }
+    // zh-CN, zh-SG, zh-Hans, plain zh -> Simplified Chinese
+    return "zh";
+  }
+  return lang.split("-")[0];
+}
+
 export function getUserLanguage(): string {
   if (typeof window !== "undefined") {
     const urlParams = new URLSearchParams(window.location.search);
@@ -50,7 +70,7 @@ export function getUserLanguage(): string {
     }
 
     if (navigator.language) {
-      return navigator.language.split("-")[0];
+      return mapBrowserLanguage(navigator.language);
     }
   }
   return "en";
@@ -76,7 +96,7 @@ function getAvailableLanguages(): string[] {
   return languages
     .map((code: string) => code.trim())
     .filter((code: string) =>
-      SUPPORTED_LANGUAGES.some((lang) => lang.code === code)
+      SUPPORTED_LANGUAGES.some((lang) => lang.code === code),
     );
 }
 
@@ -164,7 +184,7 @@ export function getPageMeta(): (MetaTag | LinkTag)[] {
 
     tags.push(
       { property: "og:type", content: "website" },
-      { property: "og:url", content: fullUrl }
+      { property: "og:url", content: fullUrl },
     );
     if (metaImage) {
       tags.push({ property: "og:image", content: metaImage });

@@ -8,8 +8,27 @@ import {
 } from "@orderly.network/i18n";
 import type { AsyncResources, LocaleJsonModule } from "@orderly.network/i18n";
 import { getRuntimeConfigArray } from "@/utils/runtime-config";
-import { getSEOConfig, getUserLanguage } from "@/utils/seo";
+import { getUserLanguage } from "@/utils/seo";
 import extendEnLocale from "../../locales/en.json";
+
+// The Orderly i18n SDK persists the user's chosen language here (localStorage + cookie)
+// via its i18next languageDetector. We read the same key so a previously chosen language
+// always wins over auto-detection.
+const LANGUAGE_STORAGE_KEY = "orderly_i18nLng";
+
+const getStoredLanguage = (): string | null => {
+  if (typeof window === "undefined") return null;
+  try {
+    const fromStorage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    if (fromStorage) return fromStorage;
+    const cookieMatch = document.cookie.match(
+      /(?:^|;\s*)orderly_i18nLng=([^;]+)/,
+    );
+    return cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+  } catch {
+    return null;
+  }
+};
 
 const baseLoaders = import.meta.glob<LocaleJsonModule>(
   "/node_modules/@orderly.network/i18n/dist/locales/*.json",
@@ -45,10 +64,15 @@ const getAvailableLanguages = (): string[] => {
 };
 
 const getDefaultLanguage = (): LocaleCode => {
-  const seoConfig = getSEOConfig();
-  const userLanguage = getUserLanguage();
   const availableLanguages = getAvailableLanguages();
 
+  // 1) A previously saved manual choice ALWAYS wins (localStorage / cookie).
+  const storedLanguage = getStoredLanguage();
+  if (storedLanguage && availableLanguages.includes(storedLanguage)) {
+    return storedLanguage as LocaleCode;
+  }
+
+  // 2) Explicit ?lang= override in the URL (e.g. shared localized links).
   if (typeof window !== "undefined") {
     const urlParams = new URLSearchParams(window.location.search);
     const langParam = urlParams.get("lang");
@@ -57,19 +81,26 @@ const getDefaultLanguage = (): LocaleCode => {
     }
   }
 
-  if (seoConfig.language && availableLanguages.includes(seoConfig.language)) {
-    return seoConfig.language as LocaleCode;
-  }
-
+  // 3) Auto-detect from the browser (with zh-Hant -> "tc" mapping).
+  const userLanguage = getUserLanguage();
   if (availableLanguages.includes(userLanguage)) {
     return userLanguage as LocaleCode;
   }
 
-  return (availableLanguages[0] || "en") as LocaleCode;
+  // 4) Fallback.
+  return "en" as LocaleCode;
 };
 
 const onLanguageChanged = async (lang: LocaleCode) => {
   if (typeof window !== "undefined") {
+    // Persist the manual choice (the SDK also caches this key; we set it
+    // defensively so getDefaultLanguage() reliably honors it next time).
+    try {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    } catch {
+      // ignore storage errors (private mode, etc.)
+    }
+
     const url = new URL(window.location.href);
     if (lang === LocaleEnum.en) {
       url.searchParams.delete("lang");
